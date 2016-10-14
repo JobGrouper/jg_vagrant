@@ -1,0 +1,53 @@
+#!/bin/sh
+
+$WEBROOT="/home/jobgrou2/public_html"
+$VHOSTDIR="/etc/httpd/conf.d/"
+$TITLE="jobgrouper"
+$EXTENSION=""
+#RESTARTCMD="/usr/bin/sudo service httpd restart"
+
+# Tell Apache where to look for conf files
+sudo sed -i -e "$ a G" /etc/httpd/conf/httpd.conf #newline
+sudo sed -i -e "$ a Include \"/etc/httpd/conf.d/*.conf\"" /etc/httpd/conf/httpd.conf
+
+# REMOVING IF CLAUSE
+#if [ "$1" != '' ]; then
+
+# Copy skeleton file into config directory
+#
+if [ ! -f "$VHOSTDIR$TITLE.conf" ]; then
+	cp "$VHOSTDIR/skeleton" "$VHOSTDIR$TITLE$EXTENSION"
+  echo "Created $VHOSTDIR$TITLE$EXTENSION"
+else
+  mv "$VHOSTDIR$TITLE.conf" "$VHOSTDIR$TITLE$EXTENSION.bak"
+  cp "$VHOSTDIR/skeleton" "$VHOSTDIR$TITLE$EXTENSION"
+  echo "Created $VHOSTDIR$TITLE$EXTENSION and made a backup of the existing conf"
+fi
+
+# Replace SKELETON with specific values
+#find "$VHOSTDIR$1$EXTENSION" -type f -exec sed -i "s/SKELETON/$1/" {} \;
+find "$VHOSTDIR$TITLE$EXTENSION" -type f -exec sed -i "s/SKELETON/jobgrouper/" {} \;
+find "$VHOSTDIR$TITLE$EXTENSION" -type f -exec sed -i "s/SKELETON_ROOT/application\/public/" {} \;
+find "$VHOSTDIR$TITLE$EXTENSION" -type f -exec sed -i "s/SKELETON_DOMAIN/jobgrouper\.build/" {} \;
+find "$VHOSTDIR$TITLE$EXTENSION" -type f -exec sed -i "s/SKELETON_ALIAS/local\.jobgrouper\.build/" {} \;
+
+# Make sure webroot exists (it should already)
+#
+if [ ! -d "$WEBROOT$TITLE/" ]; then
+  mkdir "$WEBROOT$TITLE/"
+  chown -R apache:apache "$WEBROOT$TITLE/"
+  echo "Created $WEBROOT$TITLE/"
+else
+  echo "$WEBROOT$TITLE/ already exists"
+fi
+
+#sudo a2ensite $1 #unnecessary, we aren't using a sites-enabled/sites-available set up
+#$RESTARTCMD
+echo "Restarting Apache"
+sudo service httpd restart
+
+#elif [ "$1" = 'help' ] || [ "$1" = '' ]; then
+#  echo "usage:"
+#  echo "sudo addwebsite "
+#  echo "example: to create hostname.localhost just run the command 'sudo addwebsite hostname.localhost'"
+#fi

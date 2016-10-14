@@ -1,0 +1,20 @@
+<VirtualHost *:80>
+
+	 ServerAdmin webmaster@localhost
+	 ServerName SKEL_DOMAIN
+	 ServerAlias SKEL_ALIAS
+	 DocumentRoot /home/jobgrou2/public_html/SKEL_ROOT
+
+	 <Directory /home/jobgrou2/public_html/SKEL_ROOT>
+	  Options Indexes MultiViews +FollowSymLinks
+	  AllowOverride All
+	  Order allow,deny
+	  Allow from all
+	 </Directory>
+
+	 ErrorLog logs/SKELETON_error.log
+	 # Possible values: debug, info, notice, warn, error, crit, alert, emerg
+	 LogLevel warn
+	 CustomLog logs/SKELETON_access.log combined
+
+</VirtualHost>
