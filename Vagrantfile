@@ -8,10 +8,12 @@ Vagrant.configure("2") do |config|
   config.hostmanager.ignore_private_ip = false
 
   config.vm.network "forwarded_port", guest: 80, host: 3000
+  config.vm.network "forwarded_port", guest: 8888, host: 4000
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
   config.vm.network "private_network", ip: "192.168.54.10"
   config.vm.hostname = "jobgrouper.build"
 
-  config.vm.synced_folder "html", "/home/jobgrou2/public_html"
+  config.vm.synced_folder "html", "/home/jobgrou2/public_html", :nfs => true
 
   config.vm.provision "shell", path: "manifests/puppet.sh"
 

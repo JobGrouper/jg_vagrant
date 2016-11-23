@@ -9,6 +9,7 @@ TITLE="jobgrouper"
 # Tell Apache where to look for conf files
 sudo sed -i -e "$ G" /etc/httpd/conf/httpd.conf
 sudo sed -i -e "$ a NameVirtualHost *:80" /etc/httpd/conf/httpd.conf
+sudo sed -i -e "$ a EnableSendfile off" /etc/httpd/conf/httpd.conf
 
 # Copy skeleton file into config directory
 #

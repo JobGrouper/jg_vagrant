@@ -2,3 +2,4 @@
 html/*
 .vagrant/
 !*EXISTS
+manifests/*.sql
