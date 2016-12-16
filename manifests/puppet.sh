@@ -33,6 +33,9 @@ echo "Specifying Mysql Install series"
 sudo sed -i '12 s/enabled=0/enabled=1/g' /etc/yum.repos.d/mysql-community.repo # enable 5.6
 sudo sed -i '19 s/enabled=1/enabled=0/g' /etc/yum.repos.d/mysql-community.repo # disable 5.7; I know it's messy
 
+echo "Installing beanstalkd"
+sudo yum -y --enablerepo=epel install beanstalkd
+
 echo "Installing Puppet-Agent"
 sudo yum -y install puppet-agent
 
