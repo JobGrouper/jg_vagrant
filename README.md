@@ -17,8 +17,8 @@ This configuration is meant to mimic our live site as closely as possible. To th
 
 This installation was tested using the latest versions of VirtualBox and Vagrant:
 
-VirtualBox 5.0.26rsomethingorother
-Vagrant 1.8.5
+VirtualBox 5.1.20r114628
+Vagrant 1.9.3
 Ruby 2.2.5p319
 
 And all that running on Windows 10. These are all the latest versions of this software and are easy enough to find on the WWW.
@@ -88,6 +88,12 @@ We have to add Guest Additions manually because of some weird Linux problem with
 
 `cd /mnt/cdrom`
 `sudo sh ./VBoxLinuxAdditions.run`
+
+Note::
+
+May have to run with the 
+
+`sudo sh ./VBoxLinuxAdditions.run --nox11`
 
 The final command executes the installer. After it starts running, you will probably see the message "Stopping VirtualBox Additions [FAILED]." That means it's working, just give it a second.
 
